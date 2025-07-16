@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhatsApp Share with Counter</title>
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    #whatsappBtn {
+      background-color: #25D366;
+      color: white;
+      font-size: 18px;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #whatsappBtn:hover {
+      background-color: #1ebe5d;
+      transform: scale(1.03);
+    }
+
+    #clickCount {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #message {
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #whatsappBtn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📤 Share with Friends</h2>
+    <button id="whatsappBtn">Share on WhatsApp</button>
+    <p id="clickCount">Click count: 0/5</p>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    let count = 0;
+    const maxCount = 5;
+
+    const btn = document.getElementById("whatsappBtn");
+    const counter = document.getElementById("clickCount");
+    const msg = document.getElementById("message");
+
+    btn.addEventListener("click", () => {
+      if (count < maxCount) {
+        count++;
+        counter.textContent = `Click count: ${count}/${maxCount}`;
+
+        // ✅ WhatsApp sharing link with pre-filled message
+        const shareText = encodeURIComponent("Hey Buddy, Join Tech For Girls Community");
+        const url = `https://wa.me/?text=${shareText}`;
+        window.open(url, '_blank'); // <-- This opens WhatsApp
+
+        if (count === maxCount) {
+          btn.disabled = true;
+          msg.textContent = "✅ Sharing complete. Please continue.";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
